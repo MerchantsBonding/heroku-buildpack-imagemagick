@@ -30,14 +30,14 @@ if [ ! -f "$CACHE_FILE" ]; then
   fi
   tar xvf "$BUILD_DIR"/"$IMAGE_MAGICK_FILE" | indent
 
-  #echo "-----> Building ImageMagick"
-  #cd "$IMAGE_MAGICK_DIR" || exit
-  #export CPPFLAGS="-I$INSTALL_DIR/include"
-  #export LDFLAGS="-L$INSTALL_DIR/lib"
-  #./configure --prefix="$INSTALL_DIR"
-  #make && make install
-  #cd ..
-  #rm -rf "$IMAGE_MAGICK_DIR"
+  echo "-----> Building ImageMagick"
+  cd "$IMAGE_MAGICK_DIR" || exit
+  export CPPFLAGS="-I$INSTALL_DIR/include"
+  export LDFLAGS="-L$INSTALL_DIR/lib"
+  ./configure --prefix="$INSTALL_DIR"
+  make && make install
+  cd ..
+  rm -rf "$IMAGE_MAGICK_DIR"
 
   # cache for future deploys
   #echo "-----> Caching ImageMagick installation"
