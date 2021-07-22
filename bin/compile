@@ -40,21 +40,21 @@ if [ ! -f "$CACHE_FILE" ]; then
   rm -rf "$IMAGE_MAGICK_DIR"
 
   # cache for future deploys
-  #echo "-----> Caching ImageMagick installation"
-  #cd "$VENDOR_DIR" || exit
-  #REL_INSTALL_DIR="imagemagick"
-  #tar czf $REL_INSTALL_DIR.tar.gz $REL_INSTALL_DIR
+  echo "-----> Caching ImageMagick installation"
+  cd "$VENDOR_DIR" || exit
+  REL_INSTALL_DIR="imagemagick"
+  tar czf $REL_INSTALL_DIR.tar.gz $REL_INSTALL_DIR
 
-  #if [ ! -d "$CACHE_DIR" ]; then
-    #mkdir -p "$CACHE_DIR"
-  #fi
+  if [ ! -d "$CACHE_DIR" ]; then
+    mkdir -p "$CACHE_DIR"
+  fi
 
-  #mv $REL_INSTALL_DIR.tar.gz "$CACHE_FILE"
+  mv $REL_INSTALL_DIR.tar.gz "$CACHE_FILE"
 else
   # cache exists, extract it
   echo "-----> Extracting ImageMagick $CACHE_FILE => $VENDOR_DIR"
-  #mkdir -p "$VENDOR_DIR"
-  #tar xzf "$CACHE_FILE" -C "$VENDOR_DIR"
+  mkdir -p "$VENDOR_DIR"
+  tar xzf "$CACHE_FILE" -C "$VENDOR_DIR"
 fi
 
 echo "-----> Writing policy file"
@@ -76,12 +76,12 @@ cat > "$INSTALL_DIR"/magic.xml <<EOF
 </magicmap>
 EOF
 
-## update PATH and LD_LIBRARY_PATH
-#echo "-----> Updating environment variables"
-#PROFILE_PATH="$BUILD_DIR/.profile.d/imagemagick.sh"
-#ACTUAL_INSTALL_PATH="$HOME/vendor/imagemagick"
-#mkdir -p $(dirname "$PROFILE_PATH")
-#echo "export PATH=$ACTUAL_INSTALL_PATH/bin:\$PATH" >> "$PROFILE_PATH"
-#echo "export LD_LIBRARY_PATH=$ACTUAL_INSTALL_PATH/lib:\$LD_LIBRARY_PATH:/usr/local/lib" >> "$PROFILE_PATH"
-#echo "export MAGICK_CONFIGURE_PATH=$ACTUAL_INSTALL_PATH" >> "$PROFILE_PATH"
-#echo "-----> Done updating environment variables. All set for ImageMagick."
+# update PATH and LD_LIBRARY_PATH
+echo "-----> Updating environment variables"
+PROFILE_PATH="$BUILD_DIR/.profile.d/imagemagick.sh"
+ACTUAL_INSTALL_PATH="$HOME/vendor/imagemagick"
+mkdir -p $(dirname "$PROFILE_PATH")
+echo "export PATH=$ACTUAL_INSTALL_PATH/bin:\$PATH" >> "$PROFILE_PATH"
+echo "export LD_LIBRARY_PATH=$ACTUAL_INSTALL_PATH/lib:\$LD_LIBRARY_PATH:/usr/local/lib" >> "$PROFILE_PATH"
+echo "export MAGICK_CONFIGURE_PATH=$ACTUAL_INSTALL_PATH" >> "$PROFILE_PATH"
+echo "-----> Done updating environment variables. All set for ImageMagick."
