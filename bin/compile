@@ -1,23 +1,26 @@
 #!/bin/bash
 
-echo "-----> Install sudo"
-apt-get install sudo
-
 echo "-----> Install ImageMagick"
 t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && sudo bash "$t" --imagemagick-version 7.1.1-4 && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 VENDOR_DIR="$BUILD_DIR/vendor"
 INSTALL_DIR="$VENDOR_DIR/imagemagick"
 
-echo "-----> Writing policy file"
-sudo mkdir -p "$INSTALL_DIR"/etc/ImageMagick
-sudo cat > "$INSTALL_DIR"/policy.xml <<EOF
-<policymap>
-  <policy domain="coder" rights="none" pattern="EPHEMERAL" />
-  <policy domain="coder" rights="none" pattern="HTTPS" />
-  <policy domain="coder" rights="none" pattern="MVG" />
-  <policy domain="coder" rights="none" pattern="MSL" />
-</policymap>
-EOF
+echo "-----> Which Convert?"
+which convert
+
+echo "-----> Convert version"
+convert --version
+
+# echo "-----> Writing policy file"
+# sudo mkdir -p "$INSTALL_DIR"/etc/ImageMagick
+# sudo cat > "$INSTALL_DIR"/policy.xml <<EOF
+# <policymap>
+#   <policy domain="coder" rights="none" pattern="EPHEMERAL" />
+#   <policy domain="coder" rights="none" pattern="HTTPS" />
+#   <policy domain="coder" rights="none" pattern="MVG" />
+#   <policy domain="coder" rights="none" pattern="MSL" />
+# </policymap>
+# EOF
 
 echo "-----> Writing config file"
 cat > "$INSTALL_DIR"/magic.xml <<EOF
