@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "-----> Install sudo"
+apt-get install sudo
+
 echo "-----> Install ImageMagick"
 t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && sudo bash "$t" --imagemagick-version 7.1.1-4 && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 VENDOR_DIR="$BUILD_DIR/vendor"
