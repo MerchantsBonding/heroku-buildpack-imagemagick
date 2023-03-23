@@ -1,13 +1,13 @@
 #!/bin/bash
 
 echo "-----> Install ImageMagick"
-t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && bash "$t" --imagemagick-version 7.1.1-4 && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
+t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && sudo bash "$t" --imagemagick-version 7.1.1-4 && rm "$t" # https://github.com/SoftCreatR/imei#one-step-automated-install
 VENDOR_DIR="$BUILD_DIR/vendor"
 INSTALL_DIR="$VENDOR_DIR/imagemagick"
 
 echo "-----> Writing policy file"
-mkdir -p "$INSTALL_DIR"/etc/ImageMagick
-cat > "$INSTALL_DIR"/policy.xml <<EOF
+sudo mkdir -p "$INSTALL_DIR"/etc/ImageMagick
+sudo cat > "$INSTALL_DIR"/policy.xml <<EOF
 <policymap>
   <policy domain="coder" rights="none" pattern="EPHEMERAL" />
   <policy domain="coder" rights="none" pattern="HTTPS" />
