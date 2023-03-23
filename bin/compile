@@ -5,6 +5,9 @@ t=$(mktemp) && wget 'https://dist.1-2.dev/imei.sh' -qO "$t" && sudo bash "$t" --
 VENDOR_DIR="$BUILD_DIR/vendor"
 INSTALL_DIR="$VENDOR_DIR/imagemagick"
 
+echo "-----> Path"
+echo "$PATH"
+
 echo "-----> Which Convert?"
 which convert
 
